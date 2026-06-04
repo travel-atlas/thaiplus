@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>🇹🇭 ไทยช่วยไทย พลัส (60/40)</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/4.0.0/uicons-regular-rounded/css/uicons-regular-rounded.css">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --primary: #f97316;
+            --primary-dark: #ea580c;
+            --primary-light: #ffedd5;
+            --bg: #fff7ed;
+            --card-bg: #ffffff;
+            --text: #1c1917;
+            --text-secondary: #57534e;
+            --danger: #dc2626;
+            --border: #fed7aa;
+            --radius: clamp(12px, 3vw, 16px);
+            --radius-lg: clamp(16px, 4vw, 20px);
+            --shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            --font-base: clamp(14px, 4vw, 16px);
+        }
+
+        body {
+            font-family: 'Kanit', 'Sarabun', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: radial-gradient(ellipse at 50% 0%, #ffedd5 0%, #fff7ed 50%, #fff 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            padding: clamp(12px, 3vw, 20px);
+            color: var(--text);
+            -webkit-tap-highlight-color: transparent;
+            font-size: var(--font-base);
+            line-height: 1.5;
+            font-weight: 400;
+        }
+
+        .container {
+            max-width: 500px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: clamp(12px, 3vw, 18px);
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: var(--radius-lg);
+            padding: clamp(14px, 4vw, 22px) clamp(12px, 3vw, 18px);
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+        }
+
+        /* Header */
+        .app-header {
+            text-align: center;
+            margin-bottom: 4px;
+        }
+        .app-logo {
+            display: block;
+            width: clamp(60px, 18vw, 85px);
+            height: auto;
+            margin: 0 auto clamp(6px, 2vw, 10px);
+        }
+        .app-title {
+            font-size: clamp(1.3em, 6vw, 1.8em);
+            font-weight: 700;
+            color: var(--primary-dark);
+            line-height: 1.3;
+        }
+        .app-subtitle {
+            font-size: clamp(0.7em, 3vw, 0.9em);
+            color: var(--text-secondary);
+            margin-top: 2px;
+            font-weight: 400;
+        }
+
+        /* Date */
+        .date-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--primary-light);
+            color: var(--primary-dark);
+            font-weight: 500;
+            padding: clamp(6px, 2vw, 10px) clamp(12px, 4vw, 18px);
+            border-radius: 50px;
+            font-size: clamp(0.75em, 3.5vw, 0.9em);
+            margin: 0 auto 12px;
+            border: 1px solid var(--border);
+        }
+
+        .warning-box {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #fff7ed;
+            border-left: 4px solid var(--primary);
+            padding: 10px 14px;
+            border-radius: var(--radius);
+            font-size: clamp(0.7em, 3vw, 0.85em);
+            color: #9a3412;
+            margin-bottom: 12px;
+        }
+
+        /* Balance Row - 4 Columns */
+        .balance-row {
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, #fff 0%, #fff7ed 100%);
+            border-radius: var(--radius);
+            border: 1.5px solid var(--border);
+            padding: clamp(8px, 2vw, 12px) 0;
+            margin-bottom: clamp(12px, 3vw, 18px);
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        }
+
+        .balance-item {
+            flex: 1 1 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 0 2px;
+            min-width: 0;
+        }
+
+        .balance-divider {
+            width: 1px;
+            height: clamp(30px, 10vw, 45px);
+            background: var(--border);
+            flex-shrink: 0;
+        }
+
+        .balance-label {
+            font-size: clamp(0.5em, 1.8vw, 0.65em);
+            color: var(--text-secondary);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            white-space: nowrap;
+        }
+
+        .balance-label i {
+            font-size: 0.9em;
+            color: var(--primary);
+        }
+
+        .balance-values {
+            display: flex;
+            align-items: baseline;
+            gap: 2px;
+        }
+
+        .balance-amount {
+            font-size: clamp(0.85em, 3.2vw, 1.1em);
+            font-weight: 700;
+            color: var(--primary-dark);
+            line-height: 1.2;
+        }
+
+        .balance-max {
+            font-size: clamp(0.45em, 1.8vw, 0.6em);
+            color: #a8a29e;
+            font-weight: 500;
+        }
+
+        /* Input */
+        .input-group {
+            margin-bottom: 12px;
+        }
+        .input-group label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 500;
+            font-size: clamp(0.8em, 3.5vw, 0.95em);
+            margin-bottom: 6px;
+            color: var(--text);
+        }
+        .input-group label i {
+            color: var(--primary);
+            font-size: 1.1em;
+        }
+        .input-wrapper {
+            position: relative;
+        }
+        .input-wrapper input {
+            width: 100%;
+            padding: clamp(10px, 3vw, 14px) clamp(12px, 3vw, 16px);
+            font-size: clamp(1em, 4vw, 1.15em);
+            font-family: 'Kanit', sans-serif;
+            font-weight: 500;
+            border: 2px solid var(--border);
+            border-radius: var(--radius);
+            outline: none;
+            background: #fafaf9;
+            color: var(--text);
+        }
+        .input-wrapper input[type="number"] {
+            padding-right: 50px;
+        }
+        .input-wrapper input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(249,115,22,0.15);
+            background: #fff;
+        }
+        .input-suffix {
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-weight: 500;
+            color: var(--text-secondary);
+            font-size: 0.9em;
+            pointer-events: none;
+        }
+
+        /* Buttons */
+        .btn-row {
+            display: flex;
+            gap: 8px;
+        }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: clamp(4px, 1.5vw, 6px);
+            padding: clamp(10px, 3vw, 13px) clamp(14px, 4vw, 20px);
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: clamp(0.8em, 3.5vw, 0.95em);
+            font-family: 'Kanit', sans-serif;
+            cursor: pointer;
+            border: none;
+            white-space: nowrap;
+            flex: 1 1 0;
+            min-width: 0;
+            transition: 0.2s;
+        }
+        .btn:active { transform: scale(0.97); }
+        .btn-primary {
+            background: linear-gradient(135deg, #f97316, #ea580c);
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(249,115,22,0.3);
+        }
+        .btn-outline {
+            background: #fff;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+        .btn-danger {
+            background: #fff;
+            border: 2px solid var(--danger);
+            color: var(--danger);
+            font-size: clamp(0.7em, 2.8vw, 0.8em);
+            padding: clamp(6px, 2vw, 8px) clamp(12px, 3vw, 16px);
+            flex: 0 0 auto;
+        }
+        .btn:disabled {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        /* Result Box */
+        .result-box {
+            background: linear-gradient(135deg, #fef7ed 0%, #fff7ed 100%);
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius);
+            padding: clamp(10px, 3vw, 14px);
+            margin-top: 12px;
+            display: none;
+        }
+        .result-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 6px 0;
+            border-bottom: 1px dashed #fed7aa;
+            font-size: clamp(0.8em, 3.5vw, 0.95em);
+        }
+        .result-row:last-child { border-bottom: none; }
+        .result-label i { color: var(--primary); }
+        .result-value {
+            font-weight: 700;
+            white-space: nowrap;
+        }
+        .cap-note {
+            color: #c2410c;
+            font-size: clamp(0.7em, 2.8vw, 0.8em);
+            margin-top: 6px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* History */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .section-title {
+            font-size: clamp(0.9em, 4vw, 1.05em);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .table-scroll {
+            max-height: 260px;
+            overflow-y: auto;
+            border-radius: var(--radius);
+            -webkit-overflow-scrolling: touch;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: clamp(0.7em, 2.8vw, 0.85em);
+        }
+        thead { position: sticky; top: 0; z-index: 2; }
+        th {
+            background: #ffedd5;
+            color: var(--primary-dark);
+            font-weight: 600;
+            padding: 8px 6px;
+            white-space: nowrap;
+        }
+        td {
+            padding: 8px 6px;
+            border-bottom: 1px solid #fed7aa;
+            vertical-align: middle;
+            word-break: keep-all;
+        }
+        .text-right { text-align: right; }
+        .text-center { text-align: center; }
+        
+        /* Action buttons in table */
+        .action-btn {
+            background: none;
+            border: none;
+            font-size: 1.1em;
+            padding: 4px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .action-btn:hover { background: #fef2f2; }
+        .btn-edit-inline { color: #3b82f6; }
+        .btn-edit-inline:hover { background: #eff6ff; }
+        .btn-delete-inline { color: #f87171; }
+        .btn-save-inline { color: #10b981; }
+        .btn-save-inline:hover { background: #ecfdf5; }
+        .btn-cancel-inline { color: #6b7280; }
+        .btn-cancel-inline:hover { background: #f3f4f6; }
+        
+        .edit-input {
+            width: 100%;
+            padding: 4px;
+            font-size: 0.9em;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-family: 'Kanit', sans-serif;
+        }
+
+        .no-data {
+            text-align: center;
+            color: #a8a29e;
+            padding: 20px;
+            font-size: 0.9em;
+        }
+
+        /* Footer / Credit */
+        .footer-credit {
+            text-align: center;
+            padding: 12px 0 4px;
+            font-size: clamp(0.7em, 2.5vw, 0.8em);
+            color: var(--text-secondary);
+            font-weight: 400;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+        .footer-credit i {
+            color: var(--primary);
+        }
+        .footer-credit strong {
+            font-weight: 600;
+            color: var(--primary-dark);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="app-header">
+                <img src="https://www.ไทยช่วยไทยพลัส.th/assets/img/tct_logo.png" alt="โลโก้ไทยช่วยไทยพลัส" class="app-logo" onerror="this.style.display='none'">
+                <h1 class="app-title">ไทยช่วยไทย พลัส</h1>
+                <p class="app-subtitle">โครงการช่วยค่าครองชีพ 60/40</p>
+            </div>
+
+            <div class="date-badge">
+                <i class="fi fi-rr-calendar"></i>
+                <span id="currentDate"></span>
+            </div>
+
+            <div class="warning-box" id="warningBox" style="display:none;"></div>
+
+            <div class="balance-row">
+                <div class="balance-item">
+                    <div class="balance-label"><i class="fi fi-rr-usd-circle"></i> วันนี้รัฐเหลือ</div>
+                    <div class="balance-values">
+                        <span class="balance-amount" id="remainDaily">200</span>
+                    </div>
+                </div>
+                <div class="balance-divider"></div>
+                <div class="balance-item">
+                    <div class="balance-label"><i class="fi fi-rr-wallet"></i> วันนี้ฉันเหลือ</div>
+                    <div class="balance-values">
+                        <span class="balance-amount" id="remainUserDaily">133.33</span>
+                    </div>
+                </div>
+                <div class="balance-divider"></div>
+                <div class="balance-item">
+                    <div class="balance-label"><i class="fi fi-rr-coins"></i> วันนี้รวมเหลือ</div>
+                    <div class="balance-values">
+                        <span class="balance-amount" id="remainTotalDaily">333.33</span>
+                    </div>
+                </div>
+                <div class="balance-divider"></div>
+                <div class="balance-item">
+                    <div class="balance-label"><i class="fi fi-rr-calendar"></i> เดือนนี้รัฐเหลือ</div>
+                    <div class="balance-values">
+                        <span class="balance-amount" id="remainMonthly">1000</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label for="txnDateTime"><i class="fi fi-rr-calendar-clock"></i> วันและเวลาที่ใช้จ่าย (แก้ไขได้)</label>
+                <div class="input-wrapper">
+                    <input type="datetime-local" id="txnDateTime">
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label for="totalAmount"><i class="fi fi-rr-shopping-cart"></i> จำนวนเงินที่ต้องการซื้อ</label>
+                <div class="input-wrapper">
+                    <input type="number" id="totalAmount" placeholder="เช่น 333" step="0.01" min="0" inputmode="decimal">
+                    <span class="input-suffix">บาท</span>
+                </div>
+            </div>
+
+            <div class="btn-row">
+                <button class="btn btn-primary" id="calcBtn"><i class="fi fi-rr-calculator"></i> คำนวณ</button>
+                <button class="btn btn-outline" id="saveBtn" disabled><i class="fi fi-rr-disk"></i> บันทึก</button>
+            </div>
+
+            <div class="result-box" id="resultBox">
+                <div class="result-row">
+                    <span class="result-label"><i class="fi fi-rr-hand-holding-heart"></i> รัฐช่วย</span>
+                    <span class="result-value" id="govPay">0</span>
+                </div>
+                <div class="result-row">
+                    <span class="result-label"><i class="fi fi-rr-user"></i> คุณจ่าย</span>
+                    <span class="result-value" id="userPay">0</span>
+                </div>
+                <div class="cap-note" id="capNote"></div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="section-header">
+                <span class="section-title"><i class="fi fi-rr-time-past"></i> ประวัติการใช้จ่าย</span>
+                <button class="btn btn-danger" id="clearAllBtn"><i class="fi fi-rr-trash"></i> ล้างทั้งหมด</button>
+            </div>
+            <div class="table-scroll">
+                <table id="historyTable">
+                    <thead>
+                        <tr>
+                            <th>วันที่</th>
+                            <th class="text-right">ยอดซื้อ</th>
+                            <th class="text-right">รัฐช่วย</th>
+                            <th class="text-right">คุณจ่าย</th>
+                            <th class="text-center" style="width: 25%;">จัดการ</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+            <div class="no-data" id="noHistory">ยังไม่มีรายการใช้จ่าย</div>
+        </div>
+
+        <div class="footer-credit">
+            <i class="fi fi-rr-code-simple"></i> พัฒนาโดย <strong>&nbsp;นายโซเฟียน สะลาแม</strong>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            const DAILY_LIMIT = 200;
+            const MONTHLY_LIMIT = 1000;
+            const STORAGE_KEY = 'thaihelp60_40_v7';
+            const PROGRAM_START = new Date('2026-06-01');
+            
+            let editingIndex = -1;
+
+            function getSelectedDateString() {
+                const selectedDateVal = document.getElementById('txnDateTime').value;
+                if(!selectedDateVal) return new Date().toISOString().split('T')[0];
+                return new Date(selectedDateVal).toISOString().split('T')[0];
+            }
+
+            function getSelectedMonthKey() {
+                const selectedDateVal = document.getElementById('txnDateTime').value;
+                const d = selectedDateVal ? new Date(selectedDateVal) : new Date();
+                return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`;
+            }
+
+            function formatThaiDate(date) {
+                return date.toLocaleDateString('th-TH', {
+                    weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+                });
+            }
+
+            function loadTransactions() {
+                try {
+                    const data = localStorage.getItem(STORAGE_KEY);
+                    return data ? JSON.parse(data) : [];
+                } catch (e) { return []; }
+            }
+            function saveTransactions(transactions) {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(transactions));
+            }
+
+            function recalculateAllTransactions(transactions) {
+                transactions.sort((a, b) => new Date(`${a.date}T${a.time}`) - new Date(`${b.date}T${b.time}`));
+
+                let monthlyGov = {};
+                let dailyGov = {};
+
+                transactions.forEach(t => {
+                    const monthKey = t.date.substring(0, 7);
+                    const dayKey = t.date;
+
+                    if (!monthlyGov[monthKey]) monthlyGov[monthKey] = 0;
+                    if (!dailyGov[dayKey]) dailyGov[dayKey] = 0;
+
+                    const remainDaily = Math.max(DAILY_LIMIT - dailyGov[dayKey], 0);
+                    const remainMonthly = Math.max(MONTHLY_LIMIT - monthlyGov[monthKey], 0);
+
+                    let rawGov = t.total * 0.6;
+                    let govPaid = Math.min(rawGov, remainDaily, remainMonthly);
+                    govPaid = Math.round(govPaid * 100) / 100;
+                    let userPaid = Math.round((t.total - govPaid) * 100) / 100;
+
+                    t.govPaid = govPaid;
+                    t.userPaid = userPaid;
+
+                    dailyGov[dayKey] += govPaid;
+                    monthlyGov[monthKey] += govPaid;
+                });
+                return transactions;
+            }
+
+            function computeUsed(transactions) {
+                const selectedDateStr = getSelectedDateString();
+                const selectedMonthKey = getSelectedMonthKey();
+                
+                let usedDaily = 0, usedMonthly = 0;
+                transactions.forEach(t => {
+                    if (t.date === selectedDateStr) usedDaily += t.govPaid;
+                    const [y, m] = t.date.split('-');
+                    if (`${y}-${m}` === selectedMonthKey) usedMonthly += t.govPaid;
+                });
+                return {
+                    usedDaily: Math.round(usedDaily * 100) / 100,
+                    usedMonthly: Math.round(usedMonthly * 100) / 100
+                };
+            }
+
+            function updateBalanceDisplay() {
+                const transactions = loadTransactions();
+                const { usedDaily, usedMonthly } = computeUsed(transactions);
+                
+                const remainDaily = Math.max(Math.round((DAILY_LIMIT - usedDaily) * 100) / 100, 0);
+                const remainMonthly = Math.max(Math.round((MONTHLY_LIMIT - usedMonthly) * 100) / 100, 0);
+                
+                // คำนวณยอด "วันนี้ฉันเหลือ"
+                const actualRemainDaily = Math.min(remainDaily, remainMonthly); 
+                const remainUserDaily = Math.round((actualRemainDaily * 4 / 6) * 100) / 100;
+                
+                // คำนวณยอด "วันนี้รวมเหลือ"
+                const remainTotalDaily = remainDaily + remainUserDaily;
+                
+                document.getElementById('remainDaily').textContent = remainDaily.toLocaleString('th-TH', {minimumFractionDigits: 0, maximumFractionDigits: 2});
+                document.getElementById('remainMonthly').textContent = remainMonthly.toLocaleString('th-TH', {minimumFractionDigits: 0, maximumFractionDigits: 2});
+                document.getElementById('remainUserDaily').textContent = remainUserDaily.toLocaleString('th-TH', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+                document.getElementById('remainTotalDaily').textContent = remainTotalDaily.toLocaleString('th-TH', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+            }
+
+            function renderHistory() {
+                const transactions = loadTransactions();
+                const tbody = document.querySelector('#historyTable tbody');
+                const noHistoryDiv = document.getElementById('noHistory');
+                tbody.innerHTML = '';
+                
+                if (transactions.length === 0) {
+                    noHistoryDiv.style.display = 'block';
+                } else {
+                    noHistoryDiv.style.display = 'none';
+                    const sortedTransactions = [...transactions].sort((a, b) => {
+                        return new Date(`${a.date}T${a.time}`) - new Date(`${b.date}T${b.time}`);
+                    });
+                    
+                    sortedTransactions.reverse().forEach((t) => {
+                        const realIndex = transactions.findIndex(item => item === t);
+                        const row = document.createElement('tr');
+                        
+                        if (editingIndex === realIndex) {
+                            row.innerHTML = `
+                                <td>
+                                    <input type="datetime-local" class="edit-input" id="editDt_${realIndex}" value="${t.date}T${t.time}">
+                                </td>
+                                <td class="text-right">${Number(t.total).toFixed(2)}</td>
+                                <td class="text-right">${Number(t.govPaid).toFixed(2)}</td>
+                                <td class="text-right">${Number(t.userPaid).toFixed(2)}</td>
+                                <td class="text-center" style="white-space: nowrap;">
+                                    <button class="action-btn btn-save-inline" onclick="saveEdit(${realIndex})" title="บันทึก"><i class="fi fi-rr-check"></i></button>
+                                    <button class="action-btn btn-cancel-inline" onclick="cancelEdit()" title="ยกเลิก"><i class="fi fi-rr-cross-circle"></i></button>
+                                </td>
+                            `;
+                        } else {
+                            const tDate = new Date(`${t.date}T${t.time}`);
+                            const shortDate = tDate.toLocaleDateString('th-TH', {day: 'numeric', month: 'short'});
+                            
+                            row.innerHTML = `
+                                <td>${shortDate} ${t.time || ''}</td>
+                                <td class="text-right">${Number(t.total).toFixed(2)}</td>
+                                <td class="text-right">${Number(t.govPaid).toFixed(2)}</td>
+                                <td class="text-right">${Number(t.userPaid).toFixed(2)}</td>
+                                <td class="text-center" style="white-space: nowrap;">
+                                    <button class="action-btn btn-edit-inline" onclick="startEdit(${realIndex})" title="แก้ไข"><i class="fi fi-rr-edit"></i></button>
+                                    <button class="action-btn btn-delete-inline" onclick="deleteTransaction(${realIndex})" title="ลบ"><i class="fi fi-rr-trash"></i></button>
+                                </td>
+                            `;
+                        }
+                        tbody.appendChild(row);
+                    });
+                }
+            }
+
+            window.startEdit = function(index) {
+                editingIndex = index;
+                renderHistory();
+            };
+
+            window.cancelEdit = function() {
+                editingIndex = -1;
+                renderHistory();
+            };
+
+            window.saveEdit = function(index) {
+                const newVal = document.getElementById(`editDt_${index}`).value;
+                if(!newVal) {
+                    alert("กรุณาระบุวันเวลาให้ถูกต้อง");
+                    return;
+                }
+                
+                const d = new Date(newVal);
+                let transactions = loadTransactions();
+                
+                transactions[index].date = d.toISOString().split('T')[0];
+                transactions[index].time = d.toLocaleTimeString('th-TH', { hour: '2-digit', minute: '2-digit' });
+                
+                transactions = recalculateAllTransactions(transactions);
+                
+                saveTransactions(transactions);
+                editingIndex = -1;
+                updateBalanceDisplay();
+                renderHistory();
+            };
+
+            window.deleteTransaction = function(index) {
+                if (confirm('ต้องการลบรายการนี้ใช่หรือไม่?')) {
+                    let transactions = loadTransactions();
+                    if (index >= 0 && index < transactions.length) {
+                        transactions.splice(index, 1);
+                        transactions = recalculateAllTransactions(transactions);
+                        saveTransactions(transactions);
+                        updateBalanceDisplay();
+                        renderHistory();
+                        clearCalculation();
+                    }
+                }
+            };
+
+            function clearAllTransactions() {
+                if (confirm('คุณแน่ใจหรือไม่ว่าต้องการล้างประวัติทั้งหมด?')) {
+                    localStorage.removeItem(STORAGE_KEY);
+                    updateBalanceDisplay();
+                    renderHistory();
+                    clearCalculation();
+                }
+            }
+
+            function clearCalculation() {
+                document.getElementById('totalAmount').value = '';
+                document.getElementById('resultBox').style.display = 'none';
+                document.getElementById('saveBtn').disabled = true;
+            }
+
+            function calculate() {
+                const totalInput = document.getElementById('totalAmount');
+                const total = parseFloat(totalInput.value);
+                const resultBox = document.getElementById('resultBox');
+                const saveBtn = document.getElementById('saveBtn');
+
+                if (isNaN(total) || total <= 0) {
+                    alert('กรุณากรอกจำนวนเงินที่ถูกต้อง');
+                    resultBox.style.display = 'none';
+                    saveBtn.disabled = true;
+                    return;
+                }
+
+                const transactions = loadTransactions();
+                const { usedDaily, usedMonthly } = computeUsed(transactions);
+                const remainDaily = Math.max(DAILY_LIMIT - usedDaily, 0);
+                const remainMonthly = Math.max(MONTHLY_LIMIT - usedMonthly, 0);
+
+                let rawGov = total * 0.6;
+                let govPaid = Math.min(rawGov, remainDaily, remainMonthly);
+                govPaid = Math.round(govPaid * 100) / 100;
+                let userPaid = Math.round((total - govPaid) * 100) / 100;
+
+                document.getElementById('govPay').textContent = govPaid.toFixed(2) + ' บาท';
+                document.getElementById('userPay').textContent = userPaid.toFixed(2) + ' บาท';
+
+                let note = '';
+                if (govPaid < rawGov) {
+                    if (remainDaily === 0) note = '<i class="fi fi-rr-exclamation"></i> วงเงินช่วยเหลือรายวันหมดแล้ว';
+                    else if (remainMonthly === 0) note = '<i class="fi fi-rr-exclamation"></i> วงเงินช่วยเหลือรายเดือนหมดแล้ว';
+                    else note = '<i class="fi fi-rr-exclamation"></i> ถึงเพดานรายวัน/เดือน รัฐช่วยได้เท่านี้';
+                }
+                document.getElementById('capNote').innerHTML = note;
+                resultBox.style.display = 'block';
+                saveBtn.disabled = false;
+            }
+
+            function saveTransaction() {
+                const totalInput = document.getElementById('totalAmount');
+                const total = parseFloat(totalInput.value);
+                if (isNaN(total) || total <= 0) return;
+
+                const selectedDateVal = document.getElementById('txnDateTime').value;
+                const d = selectedDateVal ? new Date(selectedDateVal) : new Date();
+                
+                const dateStr = d.toISOString().split('T')[0];
+                const timeStr = d.toLocaleTimeString('th-TH', { hour: '2-digit', minute: '2-digit' });
+                
+                let transactions = loadTransactions();
+                transactions.push({
+                    date: dateStr,
+                    time: timeStr,
+                    total: Math.round(total * 100) / 100,
+                    govPaid: 0, 
+                    userPaid: 0
+                });
+
+                transactions = recalculateAllTransactions(transactions);
+
+                saveTransactions(transactions);
+                updateBalanceDisplay();
+                renderHistory();
+                clearCalculation();
+                document.getElementById('totalAmount').value = '';
+            }
+
+            function checkProgramDate() {
+                const today = new Date();
+                const warningBox = document.getElementById('warningBox');
+                if (today < PROGRAM_START) {
+                    warningBox.style.display = 'flex';
+                    warningBox.innerHTML = '<i class="fi fi-rr-info"></i> โครงการยังไม่เริ่ม (เริ่ม 1 มิ.ย. 2569) ระบบนี้ใช้ทดสอบการคำนวณเท่านั้น';
+                }
+            }
+
+            function initDateTime() {
+                const now = new Date();
+                now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+                document.getElementById('txnDateTime').value = now.toISOString().slice(0, 16);
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+                document.getElementById('currentDate').textContent = formatThaiDate(new Date());
+                initDateTime();
+                checkProgramDate();
+                
+                let transactions = loadTransactions();
+                if(transactions.length > 0) {
+                    saveTransactions(recalculateAllTransactions(transactions));
+                }
+                
+                updateBalanceDisplay();
+                renderHistory();
+
+                document.getElementById('txnDateTime').addEventListener('change', updateBalanceDisplay);
+                
+                document.getElementById('calcBtn').addEventListener('click', calculate);
+                document.getElementById('saveBtn').addEventListener('click', saveTransaction);
+                document.getElementById('clearAllBtn').addEventListener('click', clearAllTransactions);
+
+                document.getElementById('totalAmount').addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') calculate();
+                });
+            });
+        })();
+    </script>
+</body>
+</html>
